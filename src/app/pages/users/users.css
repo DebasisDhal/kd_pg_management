@@ -1,0 +1,11 @@
+.outerDiv{
+    border: 1px solid gray;
+    padding: 15px;
+}
+
+.row{
+    padding-top: 10px;
+}
+.validation{
+    color: red;
+}

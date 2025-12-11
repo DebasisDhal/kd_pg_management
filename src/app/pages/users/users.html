@@ -1,0 +1,210 @@
+
+<div class="container">
+<h1 class="text-center">KD PG Sample Application</h1>
+<div class="row">
+   <div class="col-md-4" >
+
+      <h5 >User  Details Entry Form</h5>
+
+      <div class="outerDiv  p-4 shadow" [formGroup]="userForm" >
+      <div class="row">
+         <div class="col-md-5">
+            <label>Name: </label>
+            
+         </div>
+         <div class="col-md-3">
+            <input type="text" required class="form-control" formControlName="firstName">
+            <p class="validation" *ngIf="userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched">First Name Mandatory</p>
+         </div>
+         <div class="col-md-3">
+            <input type="text" class="form-control" formControlName="lastName"> 
+             <p class="validation" *ngIf="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched">Second Name Mandatory</p>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-5">
+            <label>Address: </label>
+         </div>
+         <div class="col-md-7">
+            <input type="text" class="form-control" formControlName="address">
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-5">Occupation:</div>
+         <div class="col-md-7">
+            <input type="text" class="form-control" formControlName="occupation">
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-5">Id Proof:</div>
+         <div class="col-md-7">
+            <select class="form-select" formControlName="idProof">
+                  <option>
+                     Addar Card
+               </option>
+                  <option>
+                     Voter Id
+               </option>
+                  <option>
+                     Driving Licience
+               </option>
+            </select>
+            <!-- <input type="" class="form-control"> -->
+         </div>
+      </div>
+            <div class="row">
+         <div class="col-md-5"></div>
+         <div class="col-md-7">
+            <input type="text" class="form-control" formControlName="id">
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-5">Entry Date:</div>
+         <div class="col-md-7">
+            <input type="date" class="form-control" formControlName="entryDate">
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-5">Food:</div>
+         <div class="col-md-7">
+            <div class="row"></div>
+            <div class="col-md-8">
+               <input type="radio" formControlName="isFood" value="yes">
+             Yes
+             <input type="radio" formControlName="isFood" value="No">
+             No
+            </div>
+         </div>
+      </div>
+        <div class="row">
+         <div class="col-md-5"></div>
+         <div class="col-md-7">
+            <input type="text" class="form-control" formControlName="libary">
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-5">Libary:</div>
+         <div class="col-md-7">
+            <div class="row"></div>
+            <div class="col-md-8">
+               <input type="radio" formControlName="islibary" value="yes">
+             Yes
+             <input type="radio" formControlName="islibary" value="No">
+             No
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-5"></div>
+         <div class="col-md-7">
+            <input type="text" class="form-control" formControlName="libary">
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-5">Room No:</div>
+         <div class="col-md-7">
+            <input type="text" class="form-control" formControlName="roomNo">
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-5">Deposite Amount:</div>
+         <div class="col-md-7">
+            <input type="text" class="form-control" formControlName="depositeAmount">
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-12">More Details:</div>
+         <textarea name="" id="" class="form-control" formControlName="about"></textarea>
+ 
+      </div>
+      <div class="row">
+      <div class="col-md-6">
+      
+      </div>
+      <div class="col-md-6 text-end">
+
+         <button class="btn btn-primary" (click)="onSubmit()" *ngIf="!editId"> Save</button>
+         <button class="btn btn-warning" (click)="onUpdate()" *ngIf="editId"> Update</button>
+         <button class="btn btn-secondary ms-2" (click)="crateForm()">Cancel</button>
+      </div>
+      </div>
+      </div>
+      
+   </div>
+   <div class="col-md-8 ">
+
+      <h5>User  List</h5>
+      <div class="outerDiv p-4 shadow">
+
+         <div class="row">
+            <div class="col-md-6">
+               
+            </div>
+            <div class="col-md-6 text-end">
+               <div class="row ">
+
+                  <div class="col-md-6">
+                    <select class="form-select" [(ngModel)]="sortBy">
+                     <option>Java</option>
+                     <option>.net</option>
+                     <option>Angular</option>
+                     </select>
+                  </div>
+                  <div class="col-md-6">
+                     <input type="text" class="form-control"  [(ngModel)]="searchBy">
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-md-12">
+               <table class="table table-borderd">
+                  <thead>
+                     <tr>
+                        <th>Sr</th>
+                        <th>Remening Days</th>
+                        <th>Name</th>
+                        <!-- <th>Occupation</th> -->
+                        <!-- <th>Id Proof</th> -->
+                        <!-- <th>Food</th> -->
+                        <th>Libary</th>
+                        <th>Deposite</th>
+                        <th>R-No</th>
+                        <!-- <th>About</th> -->
+                        <th>Action</th>
+                     </tr>
+                  </thead>
+           
+                  <tbody >
+                     <tr *ngFor="let ul of userList">
+                        <td>{{ul.userId}}</td>
+                        <td>{{getNextMonthDate(ul.entryDate)}} Days</td>
+                        <td>{{ul.firstName}} {{ul.lastName}}</td>
+                       
+                        <!-- <td>{{ul.occupation}}</td> -->
+                        <!-- <td>{{ul.idProof}} {{ul.id}}</td> -->
+                        <!-- <td>{{ul.isFood}}</td> -->
+                        <td>{{ul.islibary}}</td>
+                        <td>{{ul.depositeAmount}}</td>
+                        <td>{{ul.roomNo}}</td>
+                        <!-- <td>{{ul.about}}</td> -->
+                        <td class="d-flex gap-2"> 
+                           <button class="btn btn-warning " (click)="onEdit(ul)">Edit</button>
+                           <button class="btn btn-danger" (click) = "onDelete(ul.userId)">Delete</button>
+                        <button class="btn btn-primary" (click)="sendWhatsApp('9583764670', 'Dear '+ ul.firstName+' , this is to inform you that your rent payment for the current month is pending. Kindly clear the dues at the earliest. Thank you.')">
+  Send WhatsApp
+</button>
+
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+
+   </div>
+</div>
+</div>
+
