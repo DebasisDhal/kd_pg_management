@@ -1,3 +1,4 @@
+
 <div class="container mt-3">
     <h3>Entry</h3>
         <div class="card shadow">
@@ -36,6 +37,7 @@
             </form>
             </div>
             <div class="col-md-8">
+          
                 <table class="table">
                     <thead>
                         <th>Sit No</th>
@@ -45,18 +47,27 @@
                         <th>Jonin Date</th>
                         <th>Deposite Amount</th>
                     </thead>
-                    <tbody>
-                        <tr *ngFor="let l of data">
-                            <td>{{l.sitNo}}</td>
-                            <td>{{l.firstName}}</td>
-                            <td>{{l.whatsappNo}}</td>
-                            <td>{{l.idProof}}</td>
-                            <td>{{l.joinDate}}</td>
-                            <td>{{l.depositeAmount}}</td>
-                        </tr>
-                    </tbody>
+              <tbody>
+  @for (l of userList; track l.id) {
+    <tr>
+      <td>{{ l.sitNo }}</td>
+      <td>{{ l.firstName }}</td>
+      <td>{{ l.whatsappNo }}</td>
+      <td>{{ l.idProof }}</td>
+      <td>{{ l.joinDate }}</td>
+      <td>{{ l.depositeAmount }}</td>
+    </tr>
+  } @empty {
+    <tr>
+      <td colspan="6">No users found</td>
+    </tr>
+  }
+</tbody>
+
                 </table>
             </div>
             </div>
     </div>
 </div>
+
+
