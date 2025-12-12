@@ -1,0 +1,62 @@
+<div class="container mt-3">
+    <h3>Entry</h3>
+        <div class="card shadow">
+            <div class="row">
+            <div class="col-md-4">
+             <form [formGroup]="newLibaryUser">
+                 
+                 <div class="input-group p-2">
+                     <span class="input-group-text">Sit No</span>
+                     <input type="number" class="form-control" formControlName="sitNo" placeholder="Sit No">
+                 </div>
+                 <div class="input-group p-2">
+                     <span class="input-group-text">First Name & Last Name</span>
+                     <input type="text" class="form-control" formControlName="firstName" placeholder="First Name">
+                     <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name">
+                 </div>
+                   <div class="input-group p-2">
+                     <span class="input-group-text">WhatsApp No</span>
+                     <input type="number" class="form-control" formControlName="whatsappNo" placeholder="Whatsapp No">
+                 </div>
+                   <div class="input-group p-2">
+                     <span class="input-group-text">ID proof</span>
+                     <input type="text" class="form-control" formControlName="idProof" placeholder="Id Proof">
+                 </div>
+                   <div class="input-group p-2">
+                     <span class="input-group-text">Join Date</span>
+                     <input type="date" class="form-control" formControlName="joinDate" placeholder="Join Date">
+                 </div>
+                   <div class="input-group p-2">
+                     <span class="input-group-text">Deposite Amount</span>
+                     <input type="number" class="form-control" formControlName="depositeAmount" placeholder="Deposite Amount">
+                 </div>
+                 <div>
+                    <button class="btn w-100 btn-primary" (click)="onSubmit()">Save</button>
+                 </div>
+            </form>
+            </div>
+            <div class="col-md-8">
+                <table class="table">
+                    <thead>
+                        <th>Sit No</th>
+                        <th>Name</th>
+                        <th>Whatsapp No</th>
+                        <th>Id Proof</th>
+                        <th>Jonin Date</th>
+                        <th>Deposite Amount</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let l of data">
+                            <td>{{l.sitNo}}</td>
+                            <td>{{l.firstName}}</td>
+                            <td>{{l.whatsappNo}}</td>
+                            <td>{{l.idProof}}</td>
+                            <td>{{l.joinDate}}</td>
+                            <td>{{l.depositeAmount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+    </div>
+</div>

@@ -1,3 +1,19 @@
 import { Routes } from '@angular/router';
+import { Users } from './pages/users/users';
+import { Rooms } from './pages/rooms/rooms';
+import { LibaryUser } from './pages/libary-user/libary-user';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+    {
+        path:'',
+        component:Users
+    },
+    {
+        path:'rooms',
+        component:Rooms
+    },
+    {
+        path:'libaryEntry',
+        component:LibaryUser
+    }
+];

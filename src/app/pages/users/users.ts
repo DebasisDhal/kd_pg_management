@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '../services/user-service';
 
 @Component({
   selector: 'app-user',
@@ -17,14 +18,14 @@ export class Users implements OnInit {
   userForm!:FormGroup
   userList:userModel[] = []; 
   editId: any;
-  constructor(){
+
+  constructor(private userMaster: UserService){
     this.crateForm();
    const lData = localStorage.getItem('userData');
    if(lData != null){
       this.userList = JSON.parse(lData);
         console.log('raw localStorage.userData:', this.userList);
    }
-
   }
 
   userObj: userModel = new userModel()
