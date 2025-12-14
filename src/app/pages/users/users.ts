@@ -151,7 +151,7 @@ export class userModel{
   roomNo:number;
 
   constructor(){
-    this.userId =0;
+    this.userId =1;
     this.firstName = '',
     this.lastName = '',
     this.address='',

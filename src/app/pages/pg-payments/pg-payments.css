@@ -1,0 +1,35 @@
+.page {
+  /* height: 100vh; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: #f5f6fa; */
+}
+
+.payment-card {
+  width: 100%;
+  max-width: 480px;
+  padding: 16px;
+}
+
+.payment-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+mat-card-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+mat-card-subtitle {
+  font-size: 13px;
+  color: #666;
+}
+
+.mat-mdc-card-header {
+    display: flex;
+    padding: 15px 120px 0;
+}
+

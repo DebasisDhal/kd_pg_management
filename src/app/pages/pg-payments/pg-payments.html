@@ -1,0 +1,153 @@
+<div class="page">
+
+  <mat-card class="payment-card mat-elevation-z8">
+
+    <mat-card-header>
+      <mat-card-title> Payment Entry</mat-card-title>
+      <mat-card-subtitle>Monthly Rent Payment</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="kdPayment" class="payment-form">
+
+     <mat-form-field appearance="outline">
+          <mat-label>Rent of Month</mat-label>
+          <mat-select formControlName="rMonth" >
+            <mat-option *ngFor="let m of months" [value] ="m.value" >{{m.name}}</mat-option>
+        
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>User Name</mat-label>
+          <input matInput formControlName="userName" placeholder="Enter user name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Room No</mat-label>
+          <input matInput type="number" formControlName="roomNo" placeholder="Room number">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Payment Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="paymentDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Amount</mat-label>
+          <input matInput type="number" formControlName="amount" placeholder="₹ Amount">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Mode of Payment</mat-label>
+          <mat-select formControlName="modeOfPay">
+            <mat-option value="cash">Cash</mat-option>
+            <mat-option value="upi">UPI</mat-option>
+            <mat-option value="bank">Bank Transfer</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-stroked-button color="warn" (click)="kdPayment.reset()">
+        Reset
+      </button>
+      <button mat-raised-button color="primary" (click)="onSubmit()">
+        Save Payment
+      </button>
+    </mat-card-actions>
+
+  </mat-card>
+
+</div>
+
+<!-- <div class="row mb-3">
+  <div class="col-md-3">
+    <label class="fw-bold">Year</label>
+    <select class="form-select" [(ngModel)]="selectedYear">
+      <option *ngFor="let y of years" [value]="y">
+        {{ y }}
+      </option>
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <label class="fw-bold">Month</label>
+    <select class="form-select" [(ngModel)]="selectedMonth">
+      <option *ngFor="let m of months" [value]="m.value">
+        {{ m.name }}
+      </option>
+    </select>
+  </div>
+</div> -->
+
+   <mat-form-field appearance="outline">
+          <mat-label>Rent of Month</mat-label>
+          <mat-select [(ngModel)]="selectedMonth" (selectionChange)="onMonthChange()" >
+            <mat-option *ngFor="let m of months" [value] ="m.value" >{{m.name}}</mat-option>
+        
+          </mat-select>
+        </mat-form-field>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <td mat-cell *matCellDef="let element"> {{element.userId}} </td>
+  </ng-container>
+  <ng-container matColumnDef="payMonth">
+    <th mat-header-cell *matHeaderCellDef> Pay Month. </th>
+    <td mat-cell *matCellDef="let element"> {{getMonth(element.rMonth)}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="userName">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="roomNo">
+    <th mat-header-cell *matHeaderCellDef> Room No </th>
+    <td mat-cell *matCellDef="let element"> {{element.roomNo}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="paymentDate">
+    <th mat-header-cell *matHeaderCellDef> Payment Date </th>
+    <td mat-cell *matCellDef="let element"> {{element.paymentDate}} </td>
+  </ng-container>
+  <ng-container matColumnDef="modeOfPay">
+    <th mat-header-cell *matHeaderCellDef> Mode of Payment </th>
+    <td mat-cell *matCellDef="let element"> {{element.modeOfPay}} </td>
+  </ng-container>
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef> Amount </th>
+    <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+  </ng-container>
+  <ng-container matColumnDef="remaningAmount">
+    <th mat-header-cell *matHeaderCellDef> Remaning Amount </th>
+    <td mat-cell *matCellDef="let element"> {{getRAmount(element.amount)}} </td>
+  </ng-container>
+
+  <!-- <ng-container matColumnDef="symbol">
+    <th mat-header-cell *matHeaderCellDef> Next Date </th>
+    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+  </ng-container> -->
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
+
+
+
+
