@@ -10,16 +10,20 @@
     <mat-card-content>
       <form [formGroup]="kdPayment" class="payment-form">
 
-     <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline">
           <mat-label>Rent of Month</mat-label>
-          <mat-select formControlName="rMonth" >
-            <mat-option *ngFor="let m of months" [value] ="m.value" >{{m.name}}</mat-option>
-        
+          <mat-select formControlName="rMonth">
+            <mat-option *ngFor="let m of months" [value]="m.value">{{m.name}}</mat-option>
+
           </mat-select>
         </mat-form-field>
+
+
+
+
         <mat-form-field appearance="outline">
-          <mat-label>User Name</mat-label>
           <input matInput formControlName="userName" placeholder="Enter user name">
+          <mat-label>User Name</mat-label>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -83,14 +87,34 @@
     </select>
   </div>
 </div> -->
+<div class="d-flex justify-content-between align-items-center gap-3">
 
-   <mat-form-field appearance="outline">
-          <mat-label>Rent of Month</mat-label>
-          <mat-select [(ngModel)]="selectedMonth" (selectionChange)="onMonthChange()" >
-            <mat-option *ngFor="let m of months" [value] ="m.value" >{{m.name}}</mat-option>
-        
-          </mat-select>
-        </mat-form-field>
+  <div >
+
+    <mat-form-field appearance="outline">
+      <mat-label>Rent of Month</mat-label>
+      <mat-select [(ngModel)]="selectedMonth" (selectionChange)="onMonthChange()">
+        <mat-option *ngFor="let m of months" [value]="m.value">{{m.name}}</mat-option>
+  
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  
+    <div class="d-flex gap-3">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Total Recive Amount</mat-label>
+      <input matInput [value]="totalReciveAmount" readonly>
+    </mat-form-field>
+    <mat-form-field appearance="outline" >
+      <mat-label>Remaning Amount</mat-label>
+      <input matInput [value]="remaningAmount" readonly>
+  
+      <span matSuffix>₹</span>
+    </mat-form-field>
+    </div>
+</div>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -136,6 +160,14 @@
     <th mat-header-cell *matHeaderCellDef> Remaning Amount </th>
     <td mat-cell *matCellDef="let element"> {{getRAmount(element.amount)}} </td>
   </ng-container>
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef> Edit </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="primary" (click)="onEdit(element)">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
 
   <!-- <ng-container matColumnDef="symbol">
     <th mat-header-cell *matHeaderCellDef> Next Date </th>
@@ -145,9 +177,3 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-
-
-
-
-
-

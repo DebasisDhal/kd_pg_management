@@ -19,7 +19,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 })
 export class PgPayments implements OnInit{
 
-  displayedColumns:string[]=['position','payMonth','userName','roomNo','paymentDate','modeOfPay','amount','remaningAmount']
+  displayedColumns:string[]=['position','payMonth','userName','roomNo','paymentDate','modeOfPay','amount','remaningAmount','edit']
    dataSource :any;
   paymentValue:kdPaymentModel[]=[];
   totalRent =4000;
@@ -40,6 +40,7 @@ months = [
   { name: 'November', value: '11' },
   { name: 'December', value: '12' }
 ];
+  editData: any;
   constructor(){
 
   }
@@ -57,25 +58,62 @@ months = [
     modeOfPay:new FormControl('')
   })
 
-  onSubmit(){
-    this.kdPayment.controls['userId'].setValue(this.allPayments.length+1)
-    this.paymentValue = this.dataSource;
-   this.paymentValue.unshift( this.kdPayment.value as kdPaymentModel);
- 
-    console.log(this.dataSource);
-    localStorage.setItem('kd_payment',JSON.stringify( this.paymentValue));
-    this.getDataOn();
-    
+onSubmit() {
+  if (this.kdPayment.invalid) {
+    return;
   }
+
+  // Load existing data
+  const storedData = JSON.parse(localStorage.getItem('kd_payment') || '[]');
+
+  if (this.editData) {
+    // ✏️ UPDATE MODE
+    const index = storedData.findIndex(
+      (item: any) => item.userId === this.editData.userId
+    );
+
+    if (index !== -1) {
+      storedData[index] = {
+        ...storedData[index],
+        ...this.kdPayment.value
+      };
+    }
+
+    this.editData = null;
+
+  } else {
+    // ➕ ADD MODE
+    const newPayment = {
+      ...this.kdPayment.value,
+      userId: storedData.length
+        ? Math.max(...storedData.map((p: any) => p.userId)) + 1
+        : 1
+    };
+
+    storedData.unshift(newPayment);
+  }
+
+  // 💾 Save to localStorage
+  localStorage.setItem('kd_payment', JSON.stringify(storedData));
+
+  // 🔄 Refresh UI
+  this.getDataOn();
+
+  // ♻️ Reset form
+  this.kdPayment.reset();
+}
+
   getDataOn(){
     const oldData = JSON.parse(localStorage.getItem('kd_payment') || '[]');
     // const ld = oldData ? JSON.parse(oldData): [];
     this.allPayments = oldData;
     this.dataSource = [...this.allPayments];
+    this.calculateAmount();
   }
 
   getRAmount(paidAmount:number):number{
-     return this.totalRent- (paidAmount ||0);
+    const rAmount = this.totalRent- (paidAmount ||0);
+     return rAmount;
   }
 
 
@@ -92,5 +130,20 @@ onMonthChange(){
 getMonth(month:string){
    return this.months.find(x=>x.value==month)?.name || '';
 }
+
+onEdit(data:any){
+    this.kdPayment.patchValue(data);
+   this.editData = data;
+}
+
+totalReciveAmount=0;
+remaningAmount=0;
+calculateAmount(){
+  for(let i of this.dataSource){
+   this.totalReciveAmount += i.amount ;
+  }
+this.remaningAmount =   this.dataSource.length *4000 - this.totalReciveAmount ; 
+}
+
 
 }
